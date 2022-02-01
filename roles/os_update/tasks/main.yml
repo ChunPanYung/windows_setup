@@ -1,0 +1,11 @@
+---
+# roles/os_update/tasks/
+- name: Search and download windows update without installing them
+  ansible.windows.win_updates:
+    state: installed
+  register: output
+
+- name: Windows Updates Output
+  ansible.builtin.debug:
+    msg: output
+...

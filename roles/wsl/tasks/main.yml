@@ -1,0 +1,9 @@
+---
+# roles/wsl/tasks/
+# prepare WSL before connecting
+
+- name: Start ssh service
+  ansible.builtin.service:
+    name: ssh
+    state: started
+...

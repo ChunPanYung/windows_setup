@@ -1,0 +1,8 @@
+.*
+!.gitignore
+# Directories
+host_vars/
+# Files
+ansible.cfg
+hosts.ini
+log.txt

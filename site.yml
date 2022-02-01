@@ -1,0 +1,20 @@
+---
+- hosts: all
+
+  vars_prompt:
+    - name: ansible_become_password
+      prompt: "BECOME password"
+
+  roles:
+    - role: os_update
+    - role: winget
+
+  tasks:
+    - name: ping
+      win_ping:
+      register: output
+
+    - name: debug
+      ansible.builtin.debug:
+        var: output
+...

@@ -1,0 +1,17 @@
+---
+# roles/winget/tasks/
+
+# copy winget_apps.json to host
+# install by commands
+# output commands
+#
+
+- name: Create folder
+  ansible.windows.win_file:
+    path: C:\Temp\ansible
+    state: directory
+
+- name: Copy files containing list of apps needed
+  ansible.windows.win_copy:
+    src: winget_apps.json
+    dest: C:\Temp\ansible\winget_app.json
