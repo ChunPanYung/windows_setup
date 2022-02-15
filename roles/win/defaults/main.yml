@@ -1,0 +1,4 @@
+---
+# win/defaults
+temp_folder: "C:\\Temp"
+ansible_temp: "{{ temp_folder }}\\ansible"

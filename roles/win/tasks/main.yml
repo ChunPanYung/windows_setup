@@ -1,0 +1,25 @@
+---
+# roles/win_update/tasks/
+- name: create temp folder
+  ansible.windows.win_file:
+    path: "{{ ansible_temp }}"
+    state: directory
+
+- name: Search and download windows update without installing them
+  ansible.windows.win_updates:
+    state: installed
+    log_path: "{{ ansible_temp }}\\ansible_win_updates.txt"
+
+- name: Download and Install third-party software
+  ansible.windows.win_get_url:
+    url: https://www.gamesave-manager.com/?s=download&ref=a4008497-2928-4750-8b88-3587c94456a2&action=start
+    dest: "{{ ansible_temp }}\\GameSaveManager.zip"
+
+- name: unzip files
+  vars:
+    unzip_dir: "{{ ansible_temp }}\\GameSaveManager"
+  community.windows.win_unzip:
+    src: "{{ ansible_temp }}\\GameSaveManager.zip"
+    dest: "{{ unzip_dir }}"
+    creates: "{{ unzip_dir }}"
+...

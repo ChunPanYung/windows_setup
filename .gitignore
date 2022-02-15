@@ -2,7 +2,8 @@
 !.gitignore
 # Directories
 host_vars/
+vars/
 # Files
 ansible.cfg
-hosts.ini
+hosts.yml
 log.txt

@@ -2,8 +2,8 @@
 # roles/wsl/tasks/
 # prepare WSL before connecting
 
-- name: Start ssh service
-  ansible.builtin.service:
-    name: ssh
-    state: started
-...
+- name: Change default editor to micro
+  lineinfile:
+    path: "/home/infinite4ever/.profile"
+    regexp: '^export EDITOR='
+    line: 'export EDITOR=/usr/bin/micro'
