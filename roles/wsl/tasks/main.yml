@@ -2,6 +2,8 @@
 # roles/wsl/tasks/
 # prepare WSL before connecting
 
+- import_tasks: next_apt.yml
+
 - name: Change default editor to micro
   lineinfile:
     path: "/home/infinite4ever/.profile"

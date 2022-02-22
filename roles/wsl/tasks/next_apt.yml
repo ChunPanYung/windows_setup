@@ -1,0 +1,26 @@
+---
+- name: Update repositories
+  become: true
+  apt:
+    update_cache: true
+  changed_when: false
+
+- name: Update all packages
+  become: true
+  apt:
+    upgrade: safe
+    autoclean: true
+    autoremove: true
+  register: apt_out
+
+- name: output apt info
+  ansible.builtin.debug:
+    var: apt_out
+
+- name: install list of packages
+  become: true
+  apt:
+    pkg:
+      - micro
+      - fd-find
+      - silversearcher-ag

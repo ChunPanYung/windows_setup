@@ -5,21 +5,27 @@
     path: "{{ ansible_temp }}"
     state: directory
 
+- name: List files in temp
+  ansible.windows.win_powershell:
+    script: |
+      Get-ChildItem "{{ ansible_temp }}" | Out-String -Stream
+  register: cmd_out
+  changed_when: False
+  failed_when: "cmd_out.error | length != 0"
+
+- name: File List
+  ansible.builtin.debug:
+    var: cmd_out
+
 - name: Search and download windows update without installing them
   ansible.windows.win_updates:
     state: installed
     log_path: "{{ ansible_temp }}\\ansible_win_updates.txt"
 
-- name: Download and Install third-party software
-  ansible.windows.win_get_url:
-    url: https://www.gamesave-manager.com/?s=download&ref=a4008497-2928-4750-8b88-3587c94456a2&action=start
-    dest: "{{ ansible_temp }}\\GameSaveManager.zip"
-
-- name: unzip files
-  vars:
-    unzip_dir: "{{ ansible_temp }}\\GameSaveManager"
-  community.windows.win_unzip:
-    src: "{{ ansible_temp }}\\GameSaveManager.zip"
-    dest: "{{ unzip_dir }}"
-    creates: "{{ unzip_dir }}"
-...
+- name: copy powershell profile
+  ansible.windows.win_copy:
+    src: powershell_profile.ps1
+    dest: "{{ item }}"
+  with_items:
+    - '%USERPROFILE%\Documents\WindowsPowershell\Microsoft.PowerShell_profile.ps1'
+    - '%USERPROFILE%\Documents\Powershell\Microsoft.VSCode_profile.ps1'
