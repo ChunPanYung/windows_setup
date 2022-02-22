@@ -2,10 +2,13 @@
 # roles/wsl/tasks/
 # prepare WSL before connecting
 
-- import_tasks: next_apt.yml
+- name: Tasks about apt
+  tags: os_update
+  import_tasks: next_apt.yml
+  become: true
 
 - name: Change default editor to micro
   lineinfile:
-    path: "/home/infinite4ever/.profile"
+    path: "{{ ansible_env.HOME }}/.profile"
     regexp: '^export EDITOR='
     line: 'export EDITOR=/usr/bin/micro'

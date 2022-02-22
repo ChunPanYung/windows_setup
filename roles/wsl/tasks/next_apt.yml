@@ -1,12 +1,10 @@
 ---
 - name: Update repositories
-  become: true
   apt:
     update_cache: true
   changed_when: false
 
 - name: Update all packages
-  become: true
   apt:
     upgrade: safe
     autoclean: true
@@ -18,7 +16,6 @@
     var: apt_out
 
 - name: install list of packages
-  become: true
   apt:
     pkg:
       - micro
